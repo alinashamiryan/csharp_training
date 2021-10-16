@@ -45,7 +45,7 @@ namespace WebAddresbookTests
             OpenHomePage();
             Login(new AccountDate("admin", "secret"));
             InitContactCreation();
-            FillContactForm(new ContactDate("Alina1","Shamiryan"));
+            FillContactForm(new ContactDate("Alina","Shamiryan"));
             SubmitContactCreation();
             ReturnHomePage();
         }
