@@ -10,17 +10,16 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddresbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : TestBase
+    public class ContactRemovalTests : TestBase
     {
         [Test]
-        public void ContactCreationTest()
+        public void ContactRemovalTest()
         {
             OpenHomePage();
             Login(new AccountDate("admin", "secret"));
-            InitContactCreation();
-            FillContactForm(new ContactDate("Alina","Shamiryan"));
-            SubmitContactCreation();
-            ReturnHomePage();
+            SelectContact();
+            RemoveContact();   
         }
     }
 }
+

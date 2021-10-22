@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAddresbookTests
 {
-    class AccountDate
+    public class AccountDate
     {
         private string username;
         private string password;
