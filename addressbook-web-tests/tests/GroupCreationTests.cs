@@ -14,19 +14,24 @@ namespace WebAddresbookTests
         [Test]
         public void GroupCreationTest()
         {
-            OpenHomePage();
-            Login(new AccountDate( "admin","secret"));
-            GoToGroupsPage();
-            InitGroupCreation();
+        
             GroupDate group = new GroupDate("новая");
             group.Footer = "super";
             group.Header = "puper";
-            FillGroupForm(group);
 
-            SubmitGroupCreatin();
-            ReturnToGroupsPage();
+            app.Groups.Create(group);
         }
 
-     
+
+        [Test]
+        public void EmptyGroupCreationTest()
+        {
+        
+            GroupDate group = new GroupDate("");
+            group.Footer = "";
+            group.Header = "";
+
+            app.Groups.Create(group);
+        }
     }
 }
