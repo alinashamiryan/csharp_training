@@ -12,7 +12,9 @@ namespace WebAddresbookTests
         [Test]
         public void ContactCreationTest()
         {
-            app.Contacts.Create();
+            ContactDate contact = new ContactDate("Alina", "Shamiryan");
+            contact.Middlename = "Alexandrovna";
+            app.Contacts.Create(contact);
         }
     }
 }

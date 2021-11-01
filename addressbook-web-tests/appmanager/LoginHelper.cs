@@ -44,9 +44,10 @@ namespace WebAddresbookTests
         }
         public bool IsLoggedIn(AccountDate account)
         {
-            return IsLoggedIn()
+            bool result= IsLoggedIn()
                 && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text 
                 == "(" + account.Username + ")";
+            return result;
 
 
         }

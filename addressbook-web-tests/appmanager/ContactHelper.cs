@@ -19,19 +19,19 @@ namespace WebAddresbookTests
 
 
 
-        public ContactHelper Create()
+        public ContactHelper Create(ContactDate contact)
         {
             InitContactCreation();
-            FillContactForm(new ContactDate("Alina", "Shamiryan"));
+            FillContactForm(contact);
             SubmitContactCreation();
             ReturnHomePage();
             return this;
         }
 
-        public ContactHelper Modify(int index)
+        public ContactHelper Modify(int index, ContactDate contact)
         {
             InitContactModification(index);
-            FillContactForm(new ContactDate("Murzik", "Murzilkin"));
+            FillContactForm(contact);
             SubmitContactModification();
             ReturnHomePage();
 
@@ -53,6 +53,7 @@ namespace WebAddresbookTests
         {
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("lastname"), contact.Lastname);
+            Type(By.Name("middlename"), contact.Middlename);
             return this;
         }
         public ContactHelper SubmitContactCreation()
@@ -101,6 +102,12 @@ namespace WebAddresbookTests
         }
         public ContactHelper SelectContact(int index)
         {
+            if (!IsContactIn())
+            {
+                ContactDate contact = new ContactDate("Alina", "");
+                contact.Middlename = "";
+                Create(contact);
+            }
             driver.FindElement(By.XPath("//tbody/tr[@name='entry']["+index+"]/td/input[@name='selected[]']")).Click();
             return this;
         }
@@ -117,7 +124,19 @@ namespace WebAddresbookTests
 
         public void InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("//tbody/tr[@name='entry'][" + index + "]//img[@alt='Edit']")).Click();
+            if (! IsContactIn())
+            {
+                ContactDate contact = new ContactDate("Alina", "");
+                contact.Middlename = "";
+                Create(contact);
+            }
+            driver.FindElement(By.XPath("//tbody/tr[@name='entry'][" + index + "]" +
+                    "//img[@alt='Edit']")).Click();
+        }
+
+        public bool IsContactIn()
+        {
+            return IsElementPresent(By.XPath("//tr[@name='entry']"));
         }
     }
 }

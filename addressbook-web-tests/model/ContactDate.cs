@@ -33,6 +33,19 @@ namespace WebAddresbookTests
                 lastname = value;
             }
         }
+
+        private string middlename = "";
+        public string Middlename
+        {
+            get
+            {
+                return middlename;
+            }
+            set
+            {
+                middlename = value;
+            }
+        }
         public ContactDate (string firstname, string lastname)
         {
             this.firstname = firstname;

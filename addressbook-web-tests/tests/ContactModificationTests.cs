@@ -11,9 +11,11 @@ namespace WebAddresbookTests
     public class ContactModificationTests : AuthTestBase
     {
         [Test]
-        public void GroupModificationTest()
+        public void ContactModificationTest()
         {
-            app.Contacts.Modify(1);
+            ContactDate contact = new ContactDate("kkkkk", "zzzz");
+            contact.Middlename = null;
+            app.Contacts.Modify(1, contact);
         }
     }
 }

@@ -20,10 +20,10 @@ namespace WebAddresbookTests
         }
 
         [Test]
-        public void LoginInWithValidCredentials()
+        public void LoginWithInValidCredentials()
         {
             app.Auth.Logout();
-            AccountDate account = new AccountDate("aaaaa", "123456");
+            AccountDate account = new AccountDate("admin", "123456");
             app.Auth.Login(account);
             Assert.IsFalse(app.Auth.IsLoggedIn(account));
         }

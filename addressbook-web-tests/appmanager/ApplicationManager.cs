@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
 namespace WebAddresbookTests
@@ -31,7 +32,7 @@ namespace WebAddresbookTests
 
         private ApplicationManager()
         {
-            driver = new FirefoxDriver();
+            driver = new ChromeDriver();
             baseURL = "http://localhost/addressbook";
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
@@ -44,6 +45,7 @@ namespace WebAddresbookTests
             try
             {
                 driver.Quit();
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
             }
             catch (Exception)
             {

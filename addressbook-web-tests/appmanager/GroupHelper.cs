@@ -74,6 +74,13 @@ namespace WebAddresbookTests
         }
         public GroupHelper SelectGroup(int index)
         {
+            if (!IsGroupIn())
+            {
+                GroupDate group = new GroupDate("новая");
+                group.Footer = "super";
+                group.Header = "puper";
+                Create(group);
+            }
             driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
             return this;
         }
@@ -93,6 +100,11 @@ namespace WebAddresbookTests
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
+        }
+
+        public bool IsGroupIn()
+        {
+            return IsElementPresent(By.XPath("//div[@id='content']/form/span"));
         }
     }
 }
