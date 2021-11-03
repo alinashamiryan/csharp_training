@@ -12,6 +12,12 @@ namespace WebAddresbookTests
         [Test]
         public void ContactRemovalTest()
         {
+            if (!app.Contacts.IsContactIn())
+            {
+                ContactDate contact = new ContactDate("Alina", "");
+                contact.Middlename = "";
+                app.Contacts.Create(contact);
+            }
             app.Contacts.Remove(1);   
         }
     }

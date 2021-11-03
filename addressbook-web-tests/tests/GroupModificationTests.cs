@@ -13,6 +13,13 @@ namespace WebAddresbookTests
         [Test]
         public void GroupModificationTest()
         {
+            if (!app.Groups.IsGroupIn())
+            {
+                GroupDate group = new GroupDate("новая");
+                group.Footer = "super";
+                group.Header = "puper";
+                app.Groups.Create(group);
+            }
             GroupDate newDate = new GroupDate("new");
             newDate.Footer = null;
             newDate.Header = null;

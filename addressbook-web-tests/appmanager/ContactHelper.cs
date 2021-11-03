@@ -102,12 +102,6 @@ namespace WebAddresbookTests
         }
         public ContactHelper SelectContact(int index)
         {
-            if (!IsContactIn())
-            {
-                ContactDate contact = new ContactDate("Alina", "");
-                contact.Middlename = "";
-                Create(contact);
-            }
             driver.FindElement(By.XPath("//tbody/tr[@name='entry']["+index+"]/td/input[@name='selected[]']")).Click();
             return this;
         }
@@ -124,12 +118,6 @@ namespace WebAddresbookTests
 
         public void InitContactModification(int index)
         {
-            if (! IsContactIn())
-            {
-                ContactDate contact = new ContactDate("Alina", "");
-                contact.Middlename = "";
-                Create(contact);
-            }
             driver.FindElement(By.XPath("//tbody/tr[@name='entry'][" + index + "]" +
                     "//img[@alt='Edit']")).Click();
         }

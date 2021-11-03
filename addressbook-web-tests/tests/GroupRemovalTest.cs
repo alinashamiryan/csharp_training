@@ -15,6 +15,13 @@ namespace WebAddresbookTests
         [Test]
         public void GroupRemovalTest()
         {
+            if (!app.Groups.IsGroupIn())
+            {
+                GroupDate group = new GroupDate("новая");
+                group.Footer = "super";
+                group.Header = "puper";
+                app.Groups.Create(group);
+            }
             app.Groups.Remove(1);
 
         }
