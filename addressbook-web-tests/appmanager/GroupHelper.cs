@@ -25,8 +25,6 @@ namespace WebAddresbookTests
             return this;
         }
 
-      
-
         public GroupHelper Modify(int index, GroupDate newDate)
         {
             manager.Navigator.GoToGroupsPage();
@@ -67,6 +65,7 @@ namespace WebAddresbookTests
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            groupCashe = null;
             return this;
         }
         public GroupHelper ReturnToGroupsPage()
@@ -82,12 +81,14 @@ namespace WebAddresbookTests
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[5]")).Click();
+            groupCashe = null;
             return this;
         }
 
         public GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            groupCashe = null;
             return this;
         }
 
@@ -102,17 +103,24 @@ namespace WebAddresbookTests
             return IsElementPresent(By.XPath("//div[@id='content']/form/span"));
         }
 
+        private List<GroupDate> groupCashe = null;
+
         public List<GroupDate> GetGroupList()
         {
-            List<GroupDate> groups = new List<GroupDate>();
-            manager.Navigator.GoToGroupsPage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
-            foreach(IWebElement element in elements)
+            if (groupCashe == null)
             {
-                groups.Add(new GroupDate(element.Text));
+                groupCashe = new List<GroupDate>();
+                manager.Navigator.GoToGroupsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                foreach (IWebElement element in elements)
+                {
+                    groupCashe.Add(new GroupDate(element.Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                }
             }
-
-            return groups;
+            return new List<GroupDate>(groupCashe);
         }
     }
 }

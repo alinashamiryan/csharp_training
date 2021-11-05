@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -41,6 +42,7 @@ namespace WebAddresbookTests
         {
             SelectContact(index);
             RemoveContact();
+
             return this;
         }
         public ContactHelper InitContactCreation()
@@ -58,6 +60,7 @@ namespace WebAddresbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[21]")).Click();
+            contactCashe = null;
             return this;
         }
         public ContactHelper ReturnHomePage()
@@ -108,45 +111,65 @@ namespace WebAddresbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+
+            Thread.Sleep(4000);
+            contactCashe = null;
             return this;
         }
-        public void SubmitContactModification()
+        public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCashe = null;
+            return this;
         }
 
-        public void InitContactModification(int index)
+        public ContactHelper InitContactModification(int index)
         {
             driver.FindElement(By.XPath("//tbody/tr[@name='entry'][" + (index+1) + "]" +
                     "//img[@alt='Edit']")).Click();
+            return this;
         }
 
         public bool IsContactIn()
         {
             return IsElementPresent(By.XPath("//tr[@name='entry']"));
         }
+
+        private List<ContactDate> contactCashe = null;
         public List<ContactDate> GetContactsList()
         {
-            List<ContactDate> contacts = new List<ContactDate>();
-            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
-            foreach (IWebElement element in elements)
+            if (contactCashe == null)
             {
-                var names = element.Text.Split(' ').ToArray();
-                if (names.Length >= 2)
+                contactCashe = new List<ContactDate>();
+
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+                foreach (IWebElement element in elements)
                 {
-                    contacts.Add(new ContactDate(names[1], names[0]));
-                }
-                else if (names.Length == 1)
-                {
-                    contacts.Add(new ContactDate(names[0], ""));
-                }
-                else
-                {
-                    contacts.Add(new ContactDate("", ""));
+                    var names = element.Text.Split(' ').ToArray();
+                    if (names.Length >= 2)
+                    {
+                        contactCashe.Add(new ContactDate(names[1], names[0])
+                        {
+                            Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                        });
+                    }
+                    else if (names.Length == 1)
+                    {
+                        contactCashe.Add(new ContactDate(names[0], "")
+                        {
+                            Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                        });
+                    }
+                    else
+                    {
+                        contactCashe.Add(new ContactDate("", "")
+                        {
+                            Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                        });
+                    }
                 }
             }
-            return contacts;
+            return new List<ContactDate>(contactCashe);
         }
-
     }
 }

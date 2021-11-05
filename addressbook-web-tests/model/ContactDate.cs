@@ -8,48 +8,17 @@ namespace WebAddresbookTests
 {
    public class ContactDate : IEquatable<ContactDate>, IComparable<ContactDate>
     {
-        private string firstname;
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
+        public string Firstname { get; set; }
 
-        private string lastname;
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
+        public string Lastname { get; set; }
 
-        private string middlename = "";
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
-        }
+        public string Middlename { get; set; }
+        public string Id { get; set; }
+
         public ContactDate (string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
         public bool Equals(ContactDate other)

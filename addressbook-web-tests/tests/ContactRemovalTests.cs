@@ -22,8 +22,14 @@ namespace WebAddresbookTests
             List<ContactDate> oldContact = app.Contacts.GetContactsList();
             app.Contacts.Remove(0);
             List<ContactDate> newContact = app.Contacts.GetContactsList();
+            ContactDate toBeRemoved = oldContact[0];
             oldContact.RemoveAt(0);
             Assert.AreEqual(oldContact, newContact);
+
+            foreach(ContactDate cont in newContact)
+            {
+                Assert.AreNotEqual(cont.Id, toBeRemoved.Id);
+            }
         }
     }
 }

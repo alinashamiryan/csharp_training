@@ -11,8 +11,6 @@ namespace WebAddresbookTests
     [TestFixture]
     public class GroupRemovalTests: AuthTestBase
     {
-    
-
         [Test]
         public void GroupRemovalTest()
         {
@@ -26,8 +24,14 @@ namespace WebAddresbookTests
             List<GroupDate> oldGroups = app.Groups.GetGroupList();
             app.Groups.Remove(0);
             List<GroupDate> newGroups = app.Groups.GetGroupList();
+            GroupDate toBeRemoved = oldGroups[0];
             oldGroups.RemoveAt(0);
             Assert.AreEqual(oldGroups, newGroups);
+
+            foreach(GroupDate group in newGroups)
+            {
+                Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+            }
         }
     }
 }
