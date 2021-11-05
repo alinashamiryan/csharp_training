@@ -25,6 +25,8 @@ namespace WebAddresbookTests
             return this;
         }
 
+      
+
         public GroupHelper Modify(int index, GroupDate newDate)
         {
             manager.Navigator.GoToGroupsPage();
@@ -74,7 +76,7 @@ namespace WebAddresbookTests
         }
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + (index+1) + "]/input")).Click();
             return this;
         }
         public GroupHelper RemoveGroup()
@@ -98,6 +100,19 @@ namespace WebAddresbookTests
         public bool IsGroupIn()
         {
             return IsElementPresent(By.XPath("//div[@id='content']/form/span"));
+        }
+
+        public List<GroupDate> GetGroupList()
+        {
+            List<GroupDate> groups = new List<GroupDate>();
+            manager.Navigator.GoToGroupsPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach(IWebElement element in elements)
+            {
+                groups.Add(new GroupDate(element.Text));
+            }
+
+            return groups;
         }
     }
 }

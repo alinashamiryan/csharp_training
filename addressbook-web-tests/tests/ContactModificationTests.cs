@@ -21,7 +21,16 @@ namespace WebAddresbookTests
             }
             ContactDate contact = new ContactDate("kkkkk", "zzzz");
             contact.Middlename = null;
-            app.Contacts.Modify(1, contact);
+
+            List<ContactDate> oldContact = app.Contacts.GetContactsList();
+            app.Contacts.Modify(0, contact);
+            List<ContactDate> newContact = app.Contacts.GetContactsList();
+            oldContact[0].Firstname = contact.Firstname;
+            oldContact[0].Lastname = contact.Lastname;
+            oldContact.Sort();
+            newContact.Sort();
+            Assert.AreEqual(oldContact, newContact);
+
         }
     }
 }

@@ -24,7 +24,13 @@ namespace WebAddresbookTests
             newDate.Footer = null;
             newDate.Header = null;
 
-            app.Groups.Modify(1, newDate);
+            List<GroupDate> oldGroups = app.Groups.GetGroupList();
+            app.Groups.Modify(0, newDate);
+            List<GroupDate> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newDate.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

@@ -17,8 +17,6 @@ namespace WebAddresbookTests
 
         public bool acceptNextAlert = true;
 
-
-
         public ContactHelper Create(ContactDate contact)
         {
             InitContactCreation();
@@ -28,6 +26,7 @@ namespace WebAddresbookTests
             return this;
         }
 
+       
         public ContactHelper Modify(int index, ContactDate contact)
         {
             InitContactModification(index);
@@ -102,7 +101,7 @@ namespace WebAddresbookTests
         }
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//tbody/tr[@name='entry']["+index+"]/td/input[@name='selected[]']")).Click();
+            driver.FindElement(By.XPath("//tbody/tr[@name='entry']["+(index+1)+"]/td/input[@name='selected[]']")).Click();
             return this;
         }
         public ContactHelper RemoveContact()
@@ -118,7 +117,7 @@ namespace WebAddresbookTests
 
         public void InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("//tbody/tr[@name='entry'][" + index + "]" +
+            driver.FindElement(By.XPath("//tbody/tr[@name='entry'][" + (index+1) + "]" +
                     "//img[@alt='Edit']")).Click();
         }
 
@@ -126,5 +125,28 @@ namespace WebAddresbookTests
         {
             return IsElementPresent(By.XPath("//tr[@name='entry']"));
         }
+        public List<ContactDate> GetContactsList()
+        {
+            List<ContactDate> contacts = new List<ContactDate>();
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            foreach (IWebElement element in elements)
+            {
+                var names = element.Text.Split(' ').ToArray();
+                if (names.Length >= 2)
+                {
+                    contacts.Add(new ContactDate(names[1], names[0]));
+                }
+                else if (names.Length == 1)
+                {
+                    contacts.Add(new ContactDate(names[0], ""));
+                }
+                else
+                {
+                    contacts.Add(new ContactDate("", ""));
+                }
+            }
+            return contacts;
+        }
+
     }
 }

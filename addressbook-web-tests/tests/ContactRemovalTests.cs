@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace WebAddresbookTests
@@ -18,7 +19,11 @@ namespace WebAddresbookTests
                 contact.Middlename = "";
                 app.Contacts.Create(contact);
             }
-            app.Contacts.Remove(1);   
+            List<ContactDate> oldContact = app.Contacts.GetContactsList();
+            app.Contacts.Remove(0);
+            List<ContactDate> newContact = app.Contacts.GetContactsList();
+            oldContact.RemoveAt(0);
+            Assert.AreEqual(oldContact, newContact);
         }
     }
 }
