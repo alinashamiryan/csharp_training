@@ -111,8 +111,6 @@ namespace WebAddresbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
-
-            Thread.Sleep(4000);
             contactCashe = null;
             return this;
         }
@@ -138,6 +136,11 @@ namespace WebAddresbookTests
         private List<ContactDate> contactCashe = null;
         public List<ContactDate> GetContactsList()
         {
+                if ( driver.Url != "http://localhost/addressbook")
+                {
+                driver.Navigate().GoToUrl("http://localhost/addressbook");
+                }
+
             if (contactCashe == null)
             {
                 contactCashe = new List<ContactDate>();
