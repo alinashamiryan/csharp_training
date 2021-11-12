@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddresbookTests
 {
@@ -105,7 +106,7 @@ namespace WebAddresbookTests
             }
             else
             {
-                return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "")+"\r\n";
+                return Regex.Replace(phone,"[ -()]","") +"\r\n";
             }
         }
         private string CleanUP2(string email)

@@ -59,7 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactInformationTests.cs" />
+    <Compile Include="tests\ContactInformationTests.cs" />
+    <Compile Include="tests\ContactsSearch.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\LoginTests.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />

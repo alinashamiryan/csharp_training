@@ -219,5 +219,30 @@ namespace WebAddresbookTests
                 
             };
         }
+        public int GetNumberOfSearchResults()
+        {
+            string text = driver.FindElement(By.CssSelector("span#search_count")).Text;
+            return Int32.Parse(text);
+        }
+        public int GetNumberTableCount(string filtr)
+        {
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            int count = 0;
+            foreach (IWebElement element in elements)
+            {
+              var data=  Regex.Match(element.Text, filtr);
+                if (data.Success)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+        public void ContactsFiltr(string filtr)
+        {
+            manager.Navigator.OpenHomePage();
+            driver.FindElement(By.Name("searchstring")).SendKeys(filtr);
+            driver.FindElement(By.Name("searchstring")).SendKeys(Keys.Enter);
+        }
     }
 }
