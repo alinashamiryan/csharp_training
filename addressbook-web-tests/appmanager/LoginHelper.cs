@@ -14,6 +14,8 @@ namespace WebAddresbookTests
         public LoginHelper(ApplicationManager manager) : base(manager)
         {
         }
+
+
         public void Login(AccountDate account)
         {
             if (IsLoggedIn())
@@ -44,12 +46,15 @@ namespace WebAddresbookTests
         }
         public bool IsLoggedIn(AccountDate account)
         {
-            bool result= IsLoggedIn()
-                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text 
-                == "(" + account.Username + ")";
+            bool result = IsLoggedIn()
+                && GetLoggetUserName() == account.Username;
             return result;
+        }
 
-
+        public string GetLoggetUserName()
+        {
+            string text = driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
+            return text.Substring(1, text.Length - 2);
         }
     }
 }
