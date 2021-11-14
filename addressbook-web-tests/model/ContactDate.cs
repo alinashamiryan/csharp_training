@@ -137,5 +137,10 @@ namespace WebAddresbookTests
                 return email + "\r\n";
             }
         }
+
+        //public override string ToString()
+        //{
+        //    return "name=" + Firstname + "\n" + Lastname + "\n" + Middlename;
+        //}
     }
 }
