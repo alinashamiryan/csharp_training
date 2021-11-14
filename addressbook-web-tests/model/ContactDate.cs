@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace WebAddresbookTests
 {
-   public class ContactDate : IEquatable<ContactDate>, IComparable<ContactDate>
+    public class ContactDate : IEquatable<ContactDate>, IComparable<ContactDate>
     {
         public string Firstname { get; set; }
 
@@ -16,6 +16,23 @@ namespace WebAddresbookTests
         public string Middlename { get; set; }
         public string Id { get; set; }
         public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string Nickname { get; set; }
+        public string Company { get; set; }
+        public string Title { get; set; }
+        public string Fax { get; set; }
+        public string Homepage { get; set; }
+        public string Phone2 { get; set; }
+        public string Notes { get; set; }
+
+        public string ADay { get; set; }
+        public string AMonth { get; set; }
+        public string AYear { get; set; }
+        public string BDay { get; set; }
+        public string BMonth { get; set; }
+        public string BYear { get; set; }
+
+
         public string WorkPhone { get; set; }
 
         public string HomePhone { get; set; }

@@ -190,7 +190,6 @@ namespace WebAddresbookTests
                 AllPhones = allPhones,
                 AllEmail=allEmail
             };
-
         }
 
         public ContactDate GetContactInformationFromEditForm(int index)
@@ -206,19 +205,151 @@ namespace WebAddresbookTests
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+            string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
+
+            string aday = driver.FindElement(By.Name("aday"))
+                .FindElement(By.CssSelector("option[selected='selected']")).GetAttribute("value");
+            string amonth = driver.FindElement(By.Name("amonth"))
+                .FindElement(By.CssSelector("option[selected='selected']")).Text;
+            string ayear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
+
+            string bday = driver.FindElement(By.Name("bday"))
+                .FindElement(By.CssSelector("option[selected='selected']")).GetAttribute("value");
+            string bmonth = driver.FindElement(By.Name("bmonth"))
+                .FindElement(By.CssSelector("option[selected='selected']")).Text;
+            string byear = driver.FindElement(By.Name("byear")).GetAttribute("value");
+
 
             return new ContactDate(firstname, lastname)
             {
+                Middlename = middlename,
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
-                Email=email,
+                Nickname= nickname,
+                Company = company,
+                Title= title,
+                Address2= address2,
+                Fax=fax,
+                Homepage=homepage,
+                Phone2=phone2,
+                Notes=notes,
+                Email =email,
                 Email2=email2,
-                Email3=email3
-                
+                Email3=email3,
+                ADay=aday,
+                AMonth=amonth,
+                AYear=ayear,
+                BDay=bday,
+                BMonth=bmonth,
+                BYear=byear     
             };
         }
+
+        public string GetContactInformationJoinViewForm(ContactDate contact)
+        {
+            string joinForm = "";
+            if (!string.IsNullOrEmpty (contact.Firstname)  || !string.IsNullOrEmpty(contact.Middlename)  || !string.IsNullOrEmpty(contact.Middlename) )
+            {
+                joinForm += contact.Firstname + " " + contact.Middlename + " " + contact.Lastname;
+            }
+            if (!string.IsNullOrEmpty(contact.Nickname))
+            {
+                joinForm += "\r\n" + contact.Nickname;
+            }
+            if (!string.IsNullOrEmpty(contact.Title))
+            {
+                joinForm += "\r\n" + contact.Title;
+            }
+            if (!string.IsNullOrEmpty(contact.Company))
+            {
+                joinForm += "\r\n" + contact.Company;
+            }
+            if (!string.IsNullOrEmpty(contact.Address))
+            {
+                joinForm += "\r\n" + contact.Address;
+            }
+            if (!string.IsNullOrEmpty(contact.HomePhone))
+            {
+                joinForm += "\r\n\r\n" + "H: " + contact.HomePhone;
+            }
+            if (!string.IsNullOrEmpty(contact.MobilePhone))
+            {
+                joinForm += "\r\n" + "M: " + contact.MobilePhone.Trim();
+            }
+            if (!string.IsNullOrEmpty(contact.WorkPhone))
+            {
+                joinForm += "\r\n" + "W: " + contact.WorkPhone;
+            }
+            if (!string.IsNullOrEmpty(contact.Fax))
+            {
+                joinForm += "\r\n" + "F: " + contact.Fax;
+            }
+            if (!string.IsNullOrEmpty(contact.Email))
+            {
+                joinForm += "\r\n\r\n" + contact.Email;
+            }
+            if (!string.IsNullOrEmpty(contact.Email2))
+            {
+                joinForm += "\r\n" + contact.Email2;
+            }
+            if (!string.IsNullOrEmpty(contact.Email3))
+            {
+                joinForm += "\r\n" + contact.Email3;
+            }
+            if (!string.IsNullOrEmpty(contact.Homepage))
+            {
+                joinForm += "\r\n" + "Homepage:" + "\r\n" + contact.Homepage;
+            }
+            if(contact.BDay != "0"||contact.BMonth != "-" || !string.IsNullOrEmpty(contact.BYear))
+            {
+                joinForm += "\r\n\r\n" + "Birthday " + (contact.BDay=="0"?"":contact.BDay + ". ") + (contact.BMonth=="-"?"":contact.BMonth + " ") + contact.BYear;
+            }
+            if (contact.ADay != "0" || contact.AMonth != "-" || !string.IsNullOrEmpty(contact.AYear))
+            {
+                joinForm += "\r\n" + "Anniversary " + (contact.ADay == "0" ? "" : contact.ADay + ". ") + (contact.AMonth == "-" ? "" : contact.AMonth + " ") + contact.AYear;
+            }
+            if(!string.IsNullOrEmpty(contact.Address2))
+            {
+                joinForm += "\r\n\r\n" + contact.Address2;
+            }
+            if (!string.IsNullOrEmpty(contact.Phone2))
+            {
+                joinForm += "\r\n\r\n" + "P: " + contact.Phone2;
+            }
+            if (!string.IsNullOrEmpty(contact.Notes))
+            {
+                joinForm += "\r\n\r\n" + contact.Notes;
+            }
+            Regex r = new Regex("[ ]+");
+
+            return r.Replace(joinForm.Trim(), @" ");
+        }
+
+
+        public string GetContactInformationFromViewForm(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            InitContactViewDetailed(index);
+            string text = driver.FindElement(By.CssSelector("div#content")).Text;
+            return text;
+        }
+
+        public void InitContactViewDetailed(int index)
+        {
+            driver.FindElement(By.XPath("//tbody/tr[@name='entry'][" + (index + 1) + "]" +
+                    "//img[@alt='Details']")).Click();
+        }
+
         public int GetNumberOfSearchResults()
         {
             string text = driver.FindElement(By.CssSelector("span#search_count")).Text;

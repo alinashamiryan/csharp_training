@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactDetailedInformationTests.cs" />
     <Compile Include="tests\ContactInformationTests.cs" />
     <Compile Include="tests\ContactsSearch.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
