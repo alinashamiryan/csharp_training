@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfContactDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ContactDate>
+    <Firstname>ëÏÝÒÝ</Firstname>
+    <Lastname>×ÞºÅ¯ïÕð¾üç®</Lastname>
+    <Middlename>ôÇÒúÙ±êöÓîÊüÄ÷ììÁÉ</Middlename>
+    <AllPhones />
+    <AllEmail />
+  </ContactDate>
+  <ContactDate>
+    <Firstname>½ÉéÇÝ</Firstname>
+    <Lastname>üÔÐ®²ñ¹ú×¶</Lastname>
+    <Middlename>ÇÔ³Îó</Middlename>
+    <AllPhones />
+    <AllEmail />
+  </ContactDate>
+</ArrayOfContactDate>

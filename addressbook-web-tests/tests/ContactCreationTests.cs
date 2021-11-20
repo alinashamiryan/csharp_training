@@ -2,7 +2,11 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.IO;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace WebAddresbookTests
@@ -23,7 +27,20 @@ namespace WebAddresbookTests
                 return contact;
         }
 
-        [Test, TestCaseSource("RandomContactDateProvider")]
+        public static IEnumerable<ContactDate> ContactDataFromXmlFile()
+        {
+            return (List<ContactDate>)
+                new XmlSerializer(typeof(List<ContactDate>)).
+                Deserialize(new StreamReader(@"contacts.xml"));
+        }
+
+        public static IEnumerable<ContactDate> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactDate>>
+                (File.ReadAllText(@"contacts.json"));
+        }
+
+        [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void ContactCreationTest(ContactDate contact)
         {
             List<ContactDate> oldContact = app.Contacts.GetContactsList();

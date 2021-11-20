@@ -15,7 +15,9 @@ namespace WebAddresbookTests
         public string Footer { get; set; }
       
         public string Id { get; set; }
-
+        public GroupDate()
+        {
+        }
         public GroupDate(string name)
         {
             Name = name;

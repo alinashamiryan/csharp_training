@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfGroupDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GroupDate>
+    <Name>àÔÖÞ¾êÁ</Name>
+    <Header>Óç¯Êºê</Header>
+    <Footer>Ü</Footer>
+  </GroupDate>
+  <GroupDate>
+    <Name>åÎ÷Ø²ºòýÖ·</Name>
+    <Header />
+    <Footer>Îç¾±¹</Footer>
+  </GroupDate>
+</ArrayOfGroupDate>

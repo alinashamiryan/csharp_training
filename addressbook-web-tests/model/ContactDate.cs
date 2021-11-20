@@ -81,6 +81,9 @@ namespace WebAddresbookTests
             Firstname = firstname;
             Lastname = lastname;
         }
+        public ContactDate()
+        {
+        }
 
         public bool Equals(ContactDate other)
         {
