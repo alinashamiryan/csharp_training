@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace WebAddresbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactTestBase
     {
         public static IEnumerable<ContactDate> RandomContactDateProvider()
         {
@@ -43,9 +43,9 @@ namespace WebAddresbookTests
         [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void ContactCreationTest(ContactDate contact)
         {
-            List<ContactDate> oldContact = app.Contacts.GetContactsList();
+            List<ContactDate> oldContact = ContactDate.GetAll();
             app.Contacts.Create(contact);
-            List<ContactDate> newContact = app.Contacts.GetContactsList();
+            List<ContactDate> newContact = ContactDate.GetAll();
             oldContact.Add(contact);
             oldContact.Sort();
             newContact.Sort();

@@ -8,13 +8,12 @@ using NUnit.Framework;
 namespace WebAddresbookTests
 {
     [TestFixture]
-    class ContactsSearch : AuthTestBase
+    class ContactsSearch : ContactTestBase
     {
         [Test]
         public void ContactSearch()
         {
-            List<ContactDate> contacts = app.Contacts.GetContactsList();
-            if (app.Contacts.GetContactsList().Count < 2)
+            if (ContactDate.GetAll().Count < 2)
             {
                 ContactDate contact = new ContactDate("Alina", "fff");
                 contact.Middlename = "";

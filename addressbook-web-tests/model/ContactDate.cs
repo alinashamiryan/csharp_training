@@ -4,16 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using LinqToDB.Mapping;
 
 namespace WebAddresbookTests
 {
+    [Table(Name = "addressbook")]
     public class ContactDate : IEquatable<ContactDate>, IComparable<ContactDate>
     {
+        [Column(Name = "firstname")]
         public string Firstname { get; set; }
 
+        [Column(Name = "lastname")]
         public string Lastname { get; set; }
 
+        [Column(Name = "middlename")]
         public string Middlename { get; set; }
+
+        [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
         public string Address { get; set; }
         public string Address2 { get; set; }
@@ -140,10 +147,13 @@ namespace WebAddresbookTests
                 return email + "\r\n";
             }
         }
+        public static List<ContactDate> GetAll()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                return (from g in db.Contacts select g).ToList();
+            }
+        }
 
-        //public override string ToString()
-        //{
-        //    return "name=" + Firstname + "\n" + Lastname + "\n" + Middlename;
-        //}
     }
 }

@@ -4,12 +4,12 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
 using NUnit.Framework;
-
+using OpenQA.Selenium;
 
 namespace WebAddresbookTests
 {
     [TestFixture]
-    public class GroupRemovalTests: AuthTestBase
+    public class GroupRemovalTests: GroupTestBase
     {
         [Test]
         public void GroupRemovalTest()
@@ -21,10 +21,12 @@ namespace WebAddresbookTests
                 group.Header = "puper";
                 app.Groups.Create(group);
             }
-            List<GroupDate> oldGroups = app.Groups.GetGroupList();
-            app.Groups.Remove(0);
-            List<GroupDate> newGroups = app.Groups.GetGroupList();
+            List<GroupDate> oldGroups = GroupDate.GetAll();
             GroupDate toBeRemoved = oldGroups[0];
+            app.Groups.Remove(toBeRemoved);
+            app.Driver.FindElement(By.CssSelector("div.msgbox"));
+           
+            List<GroupDate> newGroups = GroupDate.GetAll();
             oldGroups.RemoveAt(0);
             Assert.AreEqual(oldGroups, newGroups);
 

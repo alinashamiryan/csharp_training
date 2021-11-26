@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
@@ -14,7 +15,7 @@ using NUnit.Framework;
 namespace WebAddresbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupDate> RandomGroupDateProvider()
         {
@@ -85,13 +86,27 @@ namespace WebAddresbookTests
         [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void GroupCreationTest(GroupDate group)
         {
-            List<GroupDate> oldGroups = app.Groups.GetGroupList();
+            List<GroupDate> oldGroups = GroupDate.GetAll();
             app.Groups.Create(group);
-            List<GroupDate> newGroups = app.Groups.GetGroupList();
+            List<GroupDate> newGroups = GroupDate.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+        }
+        [Test]
+        public void TestDBConnectivity()
+        {
+           
+            DateTime start = DateTime.Now;
+            List<GroupDate> fronUi = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupDate> fronDB = GroupDate.GetAll();
+             end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
         }
     }
 }
