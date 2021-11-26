@@ -23,9 +23,7 @@ namespace WebAddresbookTests
             }
             List<GroupDate> oldGroups = GroupDate.GetAll();
             GroupDate toBeRemoved = oldGroups[0];
-            app.Groups.Remove(toBeRemoved);
-            app.Driver.FindElement(By.CssSelector("div.msgbox"));
-           
+            app.Groups.Remove(toBeRemoved); 
             List<GroupDate> newGroups = GroupDate.GetAll();
             oldGroups.RemoveAt(0);
             Assert.AreEqual(oldGroups, newGroups);

@@ -97,16 +97,10 @@ namespace WebAddresbookTests
         [Test]
         public void TestDBConnectivity()
         {
-           
-            DateTime start = DateTime.Now;
-            List<GroupDate> fronUi = app.Groups.GetGroupList();
-            DateTime end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
-
-            start = DateTime.Now;
-            List<GroupDate> fronDB = GroupDate.GetAll();
-             end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
+           foreach(ContactDate contact in GroupDate.GetAll()[0].GetContacts())
+            {
+               System.Console.Out.WriteLine(contact.Firstname);
+            }
         }
     }
 }

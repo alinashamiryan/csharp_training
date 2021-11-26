@@ -7,7 +7,6 @@ using NUnit.Framework;
 
 namespace WebAddresbookTests
 {
-    
     public class ContactTestBase : AuthTestBase
     {
         [TearDown]

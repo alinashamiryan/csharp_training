@@ -26,16 +26,12 @@ namespace WebAddresbookTests
             ReturnHomePage();
             return this;
         }
-
-        
-
         public ContactHelper Modify(int index, ContactDate contact)
         {
             InitContactModification(index);
             FillContactForm(contact);
             SubmitContactModification();
             ReturnHomePage();
-
             return this;
         }
 
@@ -45,10 +41,8 @@ namespace WebAddresbookTests
             FillContactForm(contact);
             SubmitContactModification();
             ReturnHomePage();
-
             return this;
         }
-
         public ContactHelper Remove (int index)
         {
             SelectContact(index);
@@ -66,7 +60,7 @@ namespace WebAddresbookTests
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
-       
+     
         public ContactHelper FillContactForm(ContactDate contact)
         {
             Type(By.Name("firstname"), contact.Firstname);
@@ -133,6 +127,7 @@ namespace WebAddresbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            driver.FindElement(By.CssSelector("div.msgbox"));
             contactCashe = null;
             return this;
         }
