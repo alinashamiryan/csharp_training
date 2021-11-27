@@ -31,14 +31,12 @@ namespace WebAddresbookTests
         public string Homepage { get; set; }
         public string Phone2 { get; set; }
         public string Notes { get; set; }
-
         public string ADay { get; set; }
         public string AMonth { get; set; }
         public string AYear { get; set; }
         public string BDay { get; set; }
         public string BMonth { get; set; }
         public string BYear { get; set; }
-
 
         public string WorkPhone { get; set; }
 
@@ -47,6 +45,9 @@ namespace WebAddresbookTests
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
+
+        [Column(Name ="deprecated")]
+        public string Deprecated { get; set; }
 
         private string allPhones;
         public string AllPhones { 
@@ -81,8 +82,7 @@ namespace WebAddresbookTests
                 allEmail = value;
             }
         }
-
-
+        
         public ContactDate (string firstname, string lastname)
         {
             Firstname = firstname;
@@ -121,7 +121,6 @@ namespace WebAddresbookTests
             {
                 return Lastname.CompareTo(other.Lastname);
             }
-           
         }
         private string CleanUP(string phone)
         {
@@ -149,9 +148,8 @@ namespace WebAddresbookTests
         {
             using (AddressbookDB db = new AddressbookDB())
             {
-                return (from g in db.Contacts select g).ToList();
+                return (from g in db.Contacts.Where(x=>x.Deprecated== "0000-00-00 00:00:00") select g).ToList();
             }
         }
-
     }
 }
