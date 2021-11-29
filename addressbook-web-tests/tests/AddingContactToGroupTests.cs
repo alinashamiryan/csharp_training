@@ -12,9 +12,35 @@ namespace WebAddresbookTests
         [Test]
         public void TestAddingContactToGroup()
         {
+            List<GroupDate> groups = GroupDate.GetAll();
+            if (groups.Count == 0)
+            {
+                GroupDate gr = new GroupDate("новая");
+                gr.Footer = "super";
+                gr.Header = "puper";
+                app.Groups.Create(gr);
+            }
+
+            List<ContactDate> con = ContactDate.GetAll();
+            if (con.Count == 0)
+            {
+                ContactDate cont = new ContactDate("Alina", "");
+                cont.Middlename = "";
+                app.Contacts.Create(cont);
+
+            }
+
+
             GroupDate group = GroupDate.GetAll()[0];
             List<ContactDate> oldList = group.GetContacts();
-            ContactDate contact = ContactDate.GetAll().Except(oldList).First();
+            ContactDate contact = ContactDate.GetAll().Except(oldList).FirstOrDefault();
+            if (contact == null)
+            {
+                app.Contacts.DeleteContactFromGroup(oldList[0], group);
+                contact = oldList[0];
+                oldList = group.GetContacts();
+            }
+
 
             app.Contacts.AddContactToGroup(contact, group);
 
