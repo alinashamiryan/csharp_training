@@ -36,9 +36,10 @@ namespace WebAddresbookTests
             ContactDate contact = ContactDate.GetAll().Except(oldList).FirstOrDefault();
             if (contact == null)
             {
-                app.Contacts.DeleteContactFromGroup(oldList[0], group);
-                contact = oldList[0];
-                oldList = group.GetContacts();
+                ContactDate cont = new ContactDate("Пупсик", "");
+                cont.Middlename = "";
+                app.Contacts.Create(cont);
+                contact = ContactDate.GetAll().Except(oldList).FirstOrDefault();
             }
 
 
